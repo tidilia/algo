@@ -1,4 +1,5 @@
-﻿namespace laba06algorithms
+﻿
+namespace laba04selfmade
 {
     partial class Form1
     {
@@ -33,7 +34,6 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.stackL = new System.Windows.Forms.Label();
-            this.ListL = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -86,15 +86,6 @@
             this.stackL.TabIndex = 4;
             this.stackL.Text = "S:";
             // 
-            // ListL
-            // 
-            this.ListL.AutoSize = true;
-            this.ListL.Location = new System.Drawing.Point(1336, 230);
-            this.ListL.Name = "ListL";
-            this.ListL.Size = new System.Drawing.Size(30, 25);
-            this.ListL.TabIndex = 5;
-            this.ListL.Text = "L:";
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -110,7 +101,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1707, 952);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.ListL);
             this.Controls.Add(this.stackL);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
@@ -129,12 +119,9 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button enter;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label1;
+        //private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label stackL;
-        private System.Windows.Forms.Label ListL;
         private System.Windows.Forms.Label label2;
     }
 }
-
-
 

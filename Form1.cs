@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using laba06algorithms;
+using laba04algo;
 
-namespace laba06algorithms
+namespace laba04selfmade
 {
     public partial class Form1 : Form
     {
@@ -21,7 +21,6 @@ namespace laba06algorithms
         int id = 0;
         int nSelect = 0;
         int[][] matrica = new int[0][];
-        int[][] tmp_matrica = new int[0][];
         MyCircle c1 = new MyCircle();
         MyCircle c2 = new MyCircle();
         Connections connect = new Connections();
@@ -31,6 +30,23 @@ namespace laba06algorithms
         List<int> list = new List<int>();
         GraphDesign pictireB = new GraphDesign();
 
+        bool[] visited;
+
+
+        private void dfs(int init)
+        {
+            string s = "";
+            s += (init + 1).ToString();
+            s += " -> ";
+            stackL.Text += s;
+            visited[init] = true;
+            for (int i = 0; i < id; i++)
+            {
+                if ((!visited[i]) && (matrica[init][i] == 1))
+                    dfs(i);
+            }
+        }
+
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
@@ -39,26 +55,7 @@ namespace laba06algorithms
 
         }
 
-        private bool parity()
-        {
-            int count = 0;
-            for (int i = 0; i < id; ++i)
-            {
-                int loc_count = 0;
-                for (int j = 0; j < id; ++j)
-                    if (matrica[i][j] == 1) ++loc_count;
-                if (loc_count % 2 == 0) ++count;
-            }
-            return (count == id);
-        }
-
-        private bool connectivity()
-        {
-            search();
-            return (list.Count == id);
-        }
-
-        private void proverka(int vertex)
+        /*private void proverka(int vertex)
         {
             if (!list.Contains(vertex))
             {
@@ -68,13 +65,15 @@ namespace laba06algorithms
                     {
                         stack.Add(j);
                         stackL.Text += (j + 1).ToString() + "->";
+                        proverka(j);
                     }
                 }
                 list.Add(vertex);
-                ListL.Text = ListL.Text + (vertex + 1).ToString() + "->";
+                ListL.Text = ListL.Text + (vertex+1).ToString() + "->";
             }
             stack.Remove(vertex);
         }
+
 
         private void search()
         {
@@ -83,34 +82,12 @@ namespace laba06algorithms
             stack.Add(x0);
             stackL.Text += (x0 + 1).ToString() + "->";
             proverka(x0);
-            while (stack.Count != 0)
+            /*while (stack.Count != 0)
             {
-                proverka(stack[stack.Count - 1]);
+                proverka(stack[0]);
             }
         }
-
-        private string euler_cycle()
-        {
-            string result = "";
-            if (!parity())
-                result += "Граф нe содержит эйлерова цикла, так как не все вершины имеют четную степень";
-            else if (!connectivity())
-                result += "Граф не содержит эйлерова цикла, так как граф несвязный";
-            else
-            {
-                int x0 = Int32.Parse(textBox1.Text) - 1;
-                Array.Resize(ref tmp_matrica, id);
-                for (int i = 0; i < id; i++)
-                    Array.Resize(ref tmp_matrica[i], id);
-                for(int i = 0; i < id; ++i)
-                    for(int j = 0; j < id; ++j) {
-                        tmp_matrica[i][j] = matrica[i][j];
-                    }
-
-            }
-            return result;
-
-        }
+        */
 
 
 
@@ -127,16 +104,15 @@ namespace laba06algorithms
             Refresh();
         }
 
-
         private void connectCreator(MouseEventArgs e)
         {
             for (int i = 0; i < circles.Count; ++i)
             {
                 if (circles[i].toSelected(e.X, e.Y))
                 {
-                    for (int j = 0; j < id; ++j)
+                    for(int j = 0; j < id; ++j)
                     {
-                        if (matrica[i][j] == 1) label2.Text += (j + 1).ToString() + " ";
+                        if (matrica[i][j] == 1) label2.Text += (j+1).ToString() + " ";
                     }
                     if (nSelect <= 1)
                     {
@@ -167,7 +143,7 @@ namespace laba06algorithms
                 }
             }
         }
-
+                  
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
@@ -176,7 +152,18 @@ namespace laba06algorithms
 
         private void enter_Click(object sender, EventArgs e)
         {
-            search();
+            if (textBox1.Text != "")
+            {
+                int init = Int32.Parse(textBox1.Text); //считываем текст из текстбокса, начальная вершина
+                textBox1.Text = "";
+
+                pictireB = new GraphDesign(circles, connections);
+
+                visited = new bool[id];
+                for (int i = 0; i < id; i++) visited[i] = false;
+                dfs(init - 1);
+            }
+            //search();
         }
     }
 }

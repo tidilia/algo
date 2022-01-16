@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using System.Drawing;
-using laba06algorithms;
+using laba04algo;
 
-namespace laba06algorithms
+namespace laba04selfmade
 {
     class Connections
     {

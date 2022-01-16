@@ -7,14 +7,14 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
-using laba06algorithms;
+using laba04algo;
 
-namespace laba06algorithms
+namespace laba04algo
 {
     class MyCircle
     {
         int x, y, id;
-        const int r = 35;
+        const int r = 20;
         bool isSelected;
         public MyCircle() { }
 
@@ -79,8 +79,7 @@ namespace laba06algorithms
             {
                 MyPen = new Pen(Color.FromArgb(167, 145, 255));
                 MyBrush = new SolidBrush(Color.FromArgb(167, 145, 255));
-            }
-            else
+            } else
             {
                 MyPen = new Pen(Color.FromArgb(255, 145, 207));
                 MyBrush = new SolidBrush(Color.FromArgb(255, 145, 207));
