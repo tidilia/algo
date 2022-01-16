@@ -1,5 +1,4 @@
-﻿
-namespace laba04selfmade
+﻿namespace laba06algorithms
 {
     partial class Form1
     {
@@ -136,4 +135,6 @@ namespace laba04selfmade
         private System.Windows.Forms.Label label2;
     }
 }
+
+
 

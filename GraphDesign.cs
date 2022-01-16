@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using laba04algo;
+using laba06algorithms;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 
-namespace laba04selfmade
+namespace laba06algorithms
 {
     class GraphDesign
     {
         List<MyCircle> circles;
         List<Connections> connections;
         public GraphDesign() { }
-        public GraphDesign(List <MyCircle> _c, List<Connections> _co)
+        public GraphDesign(List<MyCircle> _c, List<Connections> _co)
         {
             circles = _c;
             connections = _co;

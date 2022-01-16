@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using laba04algo;
+using laba06algorithms;
 
-namespace laba04selfmade
+namespace laba06algorithms
 {
     public partial class Form1 : Form
     {
@@ -21,6 +21,7 @@ namespace laba04selfmade
         int id = 0;
         int nSelect = 0;
         int[][] matrica = new int[0][];
+        int[][] tmp_matrica = new int[0][];
         MyCircle c1 = new MyCircle();
         MyCircle c2 = new MyCircle();
         Connections connect = new Connections();
@@ -38,6 +39,25 @@ namespace laba04selfmade
 
         }
 
+        private bool parity()
+        {
+            int count = 0;
+            for (int i = 0; i < id; ++i)
+            {
+                int loc_count = 0;
+                for (int j = 0; j < id; ++j)
+                    if (matrica[i][j] == 1) ++loc_count;
+                if (loc_count % 2 == 0) ++count;
+            }
+            return (count == id);
+        }
+
+        private bool connectivity()
+        {
+            search();
+            return (list.Count == id);
+        }
+
         private void proverka(int vertex)
         {
             if (!list.Contains(vertex))
@@ -49,9 +69,9 @@ namespace laba04selfmade
                         stack.Add(j);
                         stackL.Text += (j + 1).ToString() + "->";
                     }
-                    }
+                }
                 list.Add(vertex);
-                ListL.Text = ListL.Text + (vertex+1).ToString() + "->";
+                ListL.Text = ListL.Text + (vertex + 1).ToString() + "->";
             }
             stack.Remove(vertex);
         }
@@ -69,6 +89,29 @@ namespace laba04selfmade
             }
         }
 
+        private string euler_cycle()
+        {
+            string result = "";
+            if (!parity())
+                result += "Граф нe содержит эйлерова цикла, так как не все вершины имеют четную степень";
+            else if (!connectivity())
+                result += "Граф не содержит эйлерова цикла, так как граф несвязный";
+            else
+            {
+                int x0 = Int32.Parse(textBox1.Text) - 1;
+                Array.Resize(ref tmp_matrica, id);
+                for (int i = 0; i < id; i++)
+                    Array.Resize(ref tmp_matrica[i], id);
+                for(int i = 0; i < id; ++i)
+                    for(int j = 0; j < id; ++j) {
+                        tmp_matrica[i][j] = matrica[i][j];
+                    }
+
+            }
+            return result;
+
+        }
+
 
 
         private void circleCreator(MouseEventArgs e)
@@ -84,15 +127,16 @@ namespace laba04selfmade
             Refresh();
         }
 
+
         private void connectCreator(MouseEventArgs e)
         {
             for (int i = 0; i < circles.Count; ++i)
             {
                 if (circles[i].toSelected(e.X, e.Y))
                 {
-                    for(int j = 0; j < id; ++j)
+                    for (int j = 0; j < id; ++j)
                     {
-                        if (matrica[i][j] == 1) label2.Text += (j+1).ToString() + " ";
+                        if (matrica[i][j] == 1) label2.Text += (j + 1).ToString() + " ";
                     }
                     if (nSelect <= 1)
                     {
@@ -123,7 +167,7 @@ namespace laba04selfmade
                 }
             }
         }
-                  
+
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
